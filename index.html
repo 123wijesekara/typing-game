@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="g.css">
@@ -70,5 +70,86 @@
          <p>&copy; 2025 Wijesekara | All rights reserved.</p>
     </footer>
 
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="g.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+</head>
+<body id="body">
+    <h1 class="title">Typing Game</h1>
+
+    <div id="game_section">
+        <div id="display_box">
+            <h2 id="display" style="padding: 20px;">Key</h2>
+        </div>
+
+        <!-- Hidden input to trigger keyboard -->
+        <input id="hiddenInput" type="text" style="position:absolute; top:-100px;" autofocus />
+
+        <div class="scorecontain">
+            <div class="score correct_box">
+                <p>Correct</p>
+                <span id="correct">0</span>
+            </div>
+            <div class="score wrong_box">
+                <p>Wrong</p>
+                <span id="wrong">0</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Wijesekara | All rights reserved.</p>
+    </footer>
+
+    <script>
+        function randomletter(){
+            const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+            const randomindex = Math.floor(Math.random() * alphabet.length);
+            return alphabet[randomindex].toUpperCase();
+        }
+
+        const display = document.getElementById("display");
+        const correct = document.getElementById("correct");
+        const wrong = document.getElementById("wrong");
+        const input = document.getElementById("hiddenInput");
+
+        let totalkeypress = 0;
+        const maxkeypress = 10;
+        display.innerHTML = randomletter();
+
+        input.addEventListener("input", function(e) {
+            const typed = e.data || input.value;
+            input.value = ""; // clear input field
+
+            if(totalkeypress >= maxkeypress) return;
+            totalkeypress++;
+
+            if (typed.toLowerCase() === display.innerHTML.toLowerCase()) {
+                correct.innerHTML = parseInt(correct.innerHTML) + 1;
+            } else {
+                wrong.innerHTML = parseInt(wrong.innerHTML) + 1;
+            }
+
+            if (totalkeypress === maxkeypress) {
+                display.innerHTML = "Refresh Page";
+                display.style.color = "red";
+                display.style.fontSize = "50px";
+
+                alert("Game is Overrr \n CORRECT : " + correct.innerHTML + "\n WRONG: " + wrong.innerHTML);
+            } else {
+                display.innerHTML = randomletter();
+            }
+        });
+
+        // For some browsers, need manual user action to focus
+        document.addEventListener("click", () => input.focus());
+    </script>
 </body>
 </html>
