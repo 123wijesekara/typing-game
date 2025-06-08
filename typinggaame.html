@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="g.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+</head>
+<body id="body">
+    <h1 class="title">Typing Game</h1>
+    <div id="game_section">
+        <div id="display_box">
+            <h2 id="display" style="padding: 20px;">Key</h2>
+        </div>
+
+        <div class="scorecontain">
+            <div class="score correct_box">
+                <p>Correct</p>
+                <span id="correct">0</span>
+            </div>
+            <div class="score wrong_box">
+                <p>Wrong</p>
+                <span id="wrong">0</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function randomletter(){
+            const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+            const randomindex = Math.floor(Math.random() * alphabet.length);
+            return alphabet[randomindex].toUpperCase();
+        }
+
+        const display = document.getElementById("display");
+        const correct = document.getElementById("correct");
+        const wrong = document.getElementById("wrong");
+
+        let totalkeypress=0;
+        const maxkeypress=10;
+        display.innerHTML = randomletter();
+
+        document.getElementById('body').addEventListener('keyup', function(e) {
+            if(totalkeypress>=maxkeypress)return;
+            totalkeypress ++;
+             
+            if (display.innerHTML.toLowerCase() === e.key.toLowerCase()) {
+                correct.innerHTML = parseInt(correct.innerHTML) + 1;
+                display.innerHTML = randomletter();
+            } else {
+                wrong.innerHTML = parseInt(wrong.innerHTML) + 1;
+                display.innerHTML = randomletter();
+            }
+
+            if(totalkeypress==maxkeypress){
+                alert("Game is Overrr \n CORRECT : " +correct.innerHTML + "\n WRONG: "+wrong.innerHTML);
+
+                display.innerHTML="Refresh Page";
+                display.style.color="red";
+                display.style.fontSize="50px";
+                
+            }
+
+            
+        });
+        
+    </script>
+
+    <footer class="footer">
+         <p>&copy; 2025 C.P Wijesekara | All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
